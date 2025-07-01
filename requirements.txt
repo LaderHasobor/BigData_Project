@@ -1,0 +1,15 @@
+# Xử lý dữ liệu
+pandas
+tqdm
+scipy
+
+# HuggingFace Transformers (mô hình BERT)
+transformers
+torch
+
+# Vẽ biểu đồ (sẽ dùng cho phần visualize.py)
+matplotlib
+seaborn
+
+# (Tùy chọn) để chạy Streamlit dashboard sau này
+streamlit
