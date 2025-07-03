@@ -18,7 +18,6 @@ data/processed/
 *.parquet
 
 # Models
-models/
 *.pt
 *.pkl
 
@@ -27,4 +26,4 @@ models/
 
 # Streamlit cache
 .streamlit/
-sentiment_model/
+models/sentiment_model/
