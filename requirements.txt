@@ -13,3 +13,7 @@ seaborn
 
 # (Tùy chọn) để chạy Streamlit dashboard sau này
 streamlit
+
+# Các thư viện bổ sung cần thiết
+python-dotenv
+google-api-python-client

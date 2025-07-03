@@ -61,7 +61,6 @@ def stream_live_comments(video_id, duration_seconds=120, output_path="data/raw/l
         for item in response.get("items", []):
             msg = item["snippet"]["displayMessage"]
             author = item["authorDetails"]["displayName"]
-            timestamp_utc = item["snippet"]["publishedAt"]
             timestamp_local = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 
             sentiment = predict_sentiment(msg)

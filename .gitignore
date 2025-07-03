@@ -27,3 +27,4 @@ models/
 
 # Streamlit cache
 .streamlit/
+sentiment_model/

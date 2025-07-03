@@ -1,30 +1,31 @@
-# utils/text_utils.py
-
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
-from scipy.special import softmax
 import torch
+from transformers import RobertaForSequenceClassification, PhobertTokenizer
+import os
 
-MODEL_NAME = "nlptown/bert-base-multilingual-uncased-sentiment"
-tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME)
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model.to(device)
+# ============================
+# 🔧 Load model + tokenizer
+# ============================
+MODEL_DIR = os.path.join("models", "sentiment_model")
+
+tokenizer = PhobertTokenizer.from_pretrained(MODEL_DIR)
+model = RobertaForSequenceClassification.from_pretrained(MODEL_DIR)
 model.eval()
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.to(device)
+
+# ============================
+# 🔍 Hàm phân tích cảm xúc
+# ============================
 def predict_sentiment(text):
     if not isinstance(text, str) or not text.strip():
         return "neutral"
-    try:
-        inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True, max_length=512).to(device)
-        with torch.no_grad():
-            outputs = model(**inputs)
-            probs = softmax(outputs.logits.cpu().numpy()[0])
-            stars = probs.argmax() + 1
-            if stars <= 2:
-                return "negative"
-            elif stars == 3:
-                return "neutral"
-            else:
-                return "positive"
-    except Exception:
-        return "neutral"
+
+    inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True, max_length=128).to(device)
+    
+    with torch.no_grad():
+        outputs = model(**inputs)
+        logits = outputs.logits
+        predicted_class_id = torch.argmax(logits, dim=1).item()
+
+    return "positive" if predicted_class_id == 1 else "negative"
