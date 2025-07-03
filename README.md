@@ -47,7 +47,7 @@ python real_time_pipeline.py
 Nhập VIDEO_ID và thời gian thu thập (tính bằng giây)
 
 Hiển thị dashboard biểu đồ cảm xúc:
-streamlit run dashboard/app.py```
+streamlit run dashboard/app.py
 
 📊 Dashboard gồm 2 biểu đồ:
 🛰️ Trực tiếp: 5 phút gần nhất (hiển thị theo phút)
